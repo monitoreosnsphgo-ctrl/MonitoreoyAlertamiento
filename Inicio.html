@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicio Nacional de Salud Pública - Estado de Hidalgo</title>
+   
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+   
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+    <!-- Google Fonts: Montserrat & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+   
+    <!-- Custom Styles & Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gob: {
+                            guinda: '#691C32',
+                            guindaDark: '#4A1222',
+                            guindaLight: '#9D2449',
+                            dorado: '#B38E5D',
+                            doradoLight: '#D4C19C',
+                            gris: '#6F7271',
+                            salud: '#007B8C',
+                            saludDark: '#005965',
+                            saludLight: '#E6F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+        }
+        .font-heading {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .pattern-bg {
+            background-color: #691C32;
+            background-image: radial-gradient(#B38E5D 0.75px, transparent 0.75px), radial-gradient(#B38E5D 0.75px, #691C32 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            background-opacity: 0.15;
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800 antialiased selection:bg-gob-guinda selection:text-white">
+
+
+    <!-- Top Institutional Bar -->
+    <header class="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm">
+        <div class="bg-gob-guinda text-white text-xs py-1.5 px-4">
+            <div class="max-w-7xl mx-mx-auto flex justify-between items-center max-w-7xl mx-auto">
+                <div class="flex items-center space-x-3">
+                    <span class="font-semibold tracking-wide uppercase"><i class="fa-solid fa-building-columns mr-1.5 text-gob-dorado"></i> Gobierno del Estado de Hidalgo</span>
+                    <span class="hidden md:inline text-slate-300">|</span>
+                    <span class="hidden md:inline text-slate-200">Servicios de Salud de Hidalgo</span>
+                </div>
+                <div class="flex items-center space-x-4 text-xs">
+                    <span id="current-date" class="text-slate-200 font-medium"></span>
+                    <span class="bg-emerald-600/30 text-emerald-200 border border-emerald-400/30 text-[10px] px-2 py-0.5 rounded-full font-semibold flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Sistema Operativo
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Main Navbar -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+            <div class="flex items-center justify-between gap-4">
+                <!-- Branding Logo & Title -->
+                <a href="#" class="flex items-center gap-3.5 group focus:outline-none">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gob-guinda to-gob-guindaDark flex items-center justify-center text-gob-dorado shadow-md group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-shield-halved text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-heading font-extrabold text-lg sm:text-xl text-gob-guinda leading-tight tracking-tight">
+                            Servicio Nacional de Salud Pública
+                        </h1>
+                        <p class="text-xs font-semibold text-gob-dorado tracking-wider uppercase">
+                            Estado de Hidalgo <span class="text-slate-400 font-normal">| Portal de Gestión</span>
+                        </p>
+                    </div>
+                </a>
+
+
+                <!-- Header Actions -->
+                <div class="hidden lg:flex items-center gap-3">
+                    <button onclick="openModal()" class="inline-flex items-center gap-2 bg-gob-guinda hover:bg-gob-guindaLight text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow transition duration-200">
+                        <i class="fa-solid fa-plus-circle text-gob-dorado"></i>
+                        Añadir Nuevo Módulo
+                    </button>
+                    <a href="#modulos" class="inline-flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-4 py-2.5 rounded-lg transition duration-200">
+                        <i class="fa-solid fa-th-large text-gob-salud"></i>
+                        Ver Módulos
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Main Content Area -->
+    <main class="flex-grow">
+       
+        <!-- Hero Section -->
+        <section class="pattern-bg text-white py-12 px-4 sm:px-6 lg:px-8 shadow-inner relative overflow-hidden">
+            <div class="max-w-7xl mx-auto relative z-10">
+                <div class="max-w-3xl">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-gob-dorado/20 text-gob-doradoLight border border-gob-dorado/30 mb-4">
+                        <i class="fa-solid fa-star text-xs"></i> Plataforma de Monitoreo y Alertamiento
+                    </span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold font-heading text-white tracking-tight leading-tight mb-3">
+                        Plataforma Institucional de Servicios y Vigilancia Epidemiológica
+                    </h2>
+                    <p class="text-slate-200 text-sm sm:text-base leading-relaxed mb-6">
+                        Acceso centralizado a los módulos operativos, tableros informativos, registros epidemiológicos y sistemas de monitoreo para las jurisdicciones sanitarias del Estado de Hidalgo.
+                    </p>
+                </div>
+
+
+                <!-- Quick Stats Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-8 pt-6 border-t border-white/10">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3.5 border border-white/10">
+                        <div class="text-xs text-slate-300 font-medium">Módulos Activos</div>
+                        <div class="text-2xl font-extrabold text-white font-heading mt-0.5" id="stat-total-modules">6</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3.5 border border-white/10">
+                        <div class="text-xs text-slate-300 font-medium">Jurisdicciones</div>
+                        <div class="text-2xl font-extrabold text-gob-doradoLight font-heading mt-0.5">12</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3.5 border border-white/10">
+                        <div class="text-xs text-slate-300 font-medium">Cobertura Estatal</div>
+                        <div class="text-2xl font-extrabold text-emerald-300 font-heading mt-0.5">84 Mód.</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3.5 border border-white/10">
+                        <div class="text-xs text-slate-300 font-medium">Disponibilidad</div>
+                        <div class="text-2xl font-extrabold text-white font-heading mt-0.5">99.9%</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Search & Filter Controls -->
+        <section id="modulos" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-20">
+            <div class="bg-white rounded-2xl shadow-xl p-4 sm:p-6 border border-slate-200">
+                <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                   
+                    <!-- Search Input Box -->
+                    <div class="relative w-full md:w-96">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                        </div>
+                        <input
+                            type="text"
+                            id="search-input"
+                            onkeyup="filterModules()"
+                            placeholder="Buscar por módulo, palabra clave o descripción..."
+                            class="w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gob-guinda focus:bg-white transition duration-200"
+                        >
+                        <button
+                            id="clear-search"
+                            onclick="clearSearch()"
+                            class="hidden absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600"
+                        >
+                            <i class="fa-solid fa-xmark text-sm"></i>
+                        </button>
+                    </div>
+
+
+                    <!-- Filter Categories -->
+                    <div class="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
+                        <button onclick="filterCategory('todos')" class="cat-btn active text-xs px-3.5 py-2 rounded-lg font-semibold bg-gob-guinda text-white whitespace-nowrap transition">
+                            Todos
+                        </button>
+                        <button onclick="filterCategory('monitoreo')" class="cat-btn text-xs px-3.5 py-2 rounded-lg font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 whitespace-nowrap transition">
+                            Vigilancia y Agua
+                        </button>
+                        <button onclick="filterCategory('operativo')" class="cat-btn text-xs px-3.5 py-2 rounded-lg font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 whitespace-nowrap transition">
+                            Operativo y Servicios
+                        </button>
+                        <button onclick="filterCategory('documentacion')" class="cat-btn text-xs px-3.5 py-2 rounded-lg font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 whitespace-nowrap transition">
+                            Normatividad
+                        </button>
+                    </div>
+
+
+                    <!-- Action for Mobile / Small screens -->
+                    <button onclick="openModal()" class="lg:hidden w-full md:w-auto inline-flex items-center justify-center gap-2 bg-gob-guinda text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow">
+                        <i class="fa-solid fa-plus-circle text-gob-dorado"></i>
+                        Añadir Módulo
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Modules Grid Section -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h3 class="font-heading font-bold text-xl text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-cubes text-gob-guinda"></i> Módulos Institucionales de Trabajo
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-1">Seleccione un módulo para abrir la herramienta o sistema correspondiente</p>
+                </div>
+                <span id="module-count-badge" class="bg-slate-100 text-slate-700 text-xs font-bold px-3 py-1 rounded-full border border-slate-200">
+                    6 de 6 Módulos
+                </span>
+            </div>
+
+
+            <!-- Grid Container -->
+            <div id="modules-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1: Monitoreo Cloro -->
+                <div class="module-card bg-white rounded-2xl border border-slate-200/80 shadow-sm card-hover flex flex-col overflow-hidden" data-category="monitoreo" data-title="monitoreo cloro" data-desc="monitoreo y vigilancia de niveles de cloracion de agua potable por jurisdiccion">
+                    <div class="p-6 flex-grow">
+                        <div class="flex items-start justify-between gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-cyan-50 border border-cyan-100 text-cyan-600 flex items-center justify-center text-xl shadow-xs">
+                                <i class="fa-solid fa-droplet"></i>
+                            </div>
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> En línea
+                            </span>
+                        </div>
+                        <h4 class="font-heading font-bold text-lg text-slate-900 mb-2 group-hover:text-gob-guinda transition">
+                            1. Monitoreo Cloro
+                        </h4>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Monitoreo y vigilancia de niveles de cloración de agua potable por jurisdicción sanitaria y municipio.
+                        </p>
+                    </div>
+                    <div class="px-6 py-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Vigilancia del Agua</span>
+                        <a href="cloro.html" target="_blank" class="inline-flex items-center gap-2 bg-gob-guinda hover:bg-gob-guindaLight text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow-sm transition">
+                            Acceder a la página <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+
+                <!-- Card 2: Planificador semanal -->
+                <div class="module-card bg-white rounded-2xl border border-slate-200/80 shadow-sm card-hover flex flex-col overflow-hidden" data-category="operativo" data-title="planificador semanal" data-desc="agendamiento y seguimiento semanal de estrategias y brigadas de salud">
+                    <div class="p-6 flex-grow">
+                        <div class="flex items-start justify-between gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center text-xl shadow-xs">
+                                <i class="fa-solid fa-calendar-week"></i>
+                            </div>
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Activo
+                            </span>
+                        </div>
+                        <h4 class="font-heading font-bold text-lg text-slate-900 mb-2">
+                            2. Planificador semanal
+                        </h4>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Agendamiento y seguimiento semanal de estrategias, comisiones territoriales y brigadas de salud estatal.
+                        </p>
+                    </div>
+                    <div class="px-6 py-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Gestión de Brigadas</span>
+                        <a href="planificador.html" target="_blank" class="inline-flex items-center gap-2 bg-gob-guinda hover:bg-gob-guindaLight text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow-sm transition">
+                            Acceder a la página <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+
+                <!-- Card 3: Indicadores programas federales -->
+                <div class="module-card bg-white rounded-2xl border border-slate-200/80 shadow-sm card-hover flex flex-col overflow-hidden" data-category="operativo" data-title="indicadores programas federales" data-desc="evaluacion y cumplimiento de metricas e indicadores de programas de salud federales">
+                    <div class="p-6 flex-grow">
+                        <div class="flex items-start justify-between gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 text-amber-600 flex items-center justify-center text-xl shadow-xs">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span> Actualizado
+                            </span>
+                        </div>
+                        <h4 class="font-heading font-bold text-lg text-slate-900 mb-2">
+                            3. Indicadores programas federales
+                        </h4>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Evaluación y cumplimiento de métricas, metas de desempeño e indicadores de programas federales de salud.
+                        </p>
+                    </div>
+                    <div class="px-6 py-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Evaluación Federal</span>
+                        <a href="indicadores.html" target="_blank" class="inline-flex items-center gap-2 bg-gob-guinda hover:bg-gob-guindaLight text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow-sm transition">
+                            Acceder a la página <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+
+                <!-- Card 4: Consultorios SUS -->
+                <div class="module-card bg-white rounded-2xl border border-slate-200/80 shadow-sm card-hover flex flex-col overflow-hidden" data-category="operativo" data-title="consultorios sus" data-desc="directorio ubicacion y estado operativo de consultorios del sistema unico de salud">
+                    <div class="p-6 flex-grow">
+                        <div class="flex items-start justify-between gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-teal-50 border border-teal-100 text-teal-600 flex items-center justify-center text-xl shadow-xs">
+                                <i class="fa-solid fa-hospital-user"></i>
+                            </div>
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Operativo
+                            </span>
+                        </div>
+                        <h4 class="font-heading font-bold text-lg text-slate-900 mb-2">
+                            4. Consultorios SUS
+                        </h4>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Directorio, ubicación geográfica, plantilla médica y estado operativo de Consultorios del Sistema Único de Salud.
+                        </p>
+                    </div>
+                    <div class="px-6 py-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Red de Atención</span>
+                        <a href="consultorios.html" target="_blank" class="inline-flex items-center gap-2 bg-gob-guinda hover:bg-gob-guindaLight text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow-sm transition">
+                            Acceder a la página <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+
+                <!-- Card 5: Estadísticas -->
+                <div class="module-card bg-white rounded-2xl border border-slate-200/80 shadow-sm card-hover flex flex-col overflow-hidden" data-category="monitoreo" data-title="estadisticas" data-desc="tableros epidemiologicos graficos de morbilidad y reportes de datos de salud">
+                    <div class="p-6 flex-grow">
+                        <div class="flex items-start justify-between gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 text-purple-600 flex items-center justify-center text-xl shadow-xs">
+                                <i class="fa-solid fa-chart-pie"></i>
+                            </div>
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span> Reportes Semanales
+                            </span>
+                        </div>
+                        <h4 class="font-heading font-bold text-lg text-slate-900 mb-2">
+                            5. Estadísticas
+                        </h4>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Tableros epidemiológicos interactivos, gráficos de morbilidad, vigilancia de brotes y reportes analíticos de datos.
+                        </p>
+                    </div>
+                    <div class="px-6 py-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Inteligencia Epidemiológica</span>
+                        <a href="estadisticas.html" target="_blank" class="inline-flex items-center gap-2 bg-gob-guinda hover:bg-gob-guindaLight text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow-sm transition">
+                            Acceder a la página <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+
+                <!-- Card 6: Repositorio SNSP -->
+                <div class="module-card bg-white rounded-2xl border border-slate-200/80 shadow-sm card-hover flex flex-col overflow-hidden" data-category="documentacion" data-title="repositorio snsp" data-desc="archivo digital de lineamientos formatos oficiales normatividad y guias tecnicas">
+                    <div class="p-6 flex-grow">
+                        <div class="flex items-start justify-between gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-rose-50 border border-rose-100 text-rose-600 flex items-center justify-center text-xl shadow-xs">
+                                <i class="fa-solid fa-folder-open"></i>
+                            </div>
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+                                <i class="fa-solid fa-file-pdf text-rose-500 text-[10px]"></i> Documentación
+                            </span>
+                        </div>
+                        <h4 class="font-heading font-bold text-lg text-slate-900 mb-2">
+                            6. Repositorio SNSP
+                        </h4>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Archivo digital de lineamientos operativos, formatos oficiales, normatividad legal, manuales y guías técnicas.
+                        </p>
+                    </div>
+                    <div class="px-6 py-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Archivos Oficiales</span>
+                        <a href="repositorio.html" target="_blank" class="inline-flex items-center gap-2 bg-gob-guinda hover:bg-gob-guindaLight text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow-sm transition">
+                            Acceder a la página <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <!-- Empty Search State -->
+            <div id="empty-state" class="hidden text-center py-16 bg-white rounded-2xl border border-dashed border-slate-300 mt-6">
+                <div class="w-16 h-16 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto text-2xl mb-3">
+                    <i class="fa-solid fa-folder-minus"></i>
+                </div>
+                <h4 class="font-heading font-bold text-base text-slate-700">No se encontraron módulos</h4>
+                <p class="text-xs text-slate-500 max-w-md mx-auto mt-1 mb-4">No hay resultados para el término de búsqueda ingresado. Intente con otra palabra clave o agregue un nuevo módulo.</p>
+                <button onclick="clearSearch()" class="text-xs font-semibold text-gob-guinda hover:underline">
+                    Restablecer Búsqueda
+                </button>
+            </div>
+        </section>
+
+
+        <!-- Institutional Banner / Information Section -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+            <div class="bg-gradient-to-r from-gob-guindaDark to-gob-guinda rounded-2xl p-6 sm:p-8 text-white shadow-lg relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="relative z-10 max-w-2xl">
+                    <h3 class="font-heading font-bold text-lg sm:text-xl text-white mb-2">
+                        ¿Necesita agregar un nuevo módulo o actualizar la portada de GitHub Pages?
+                    </h3>
+                    <p class="text-slate-200 text-xs sm:text-sm leading-relaxed">
+                        Utilice el generador de módulos dinámicos para añadir acceso rápido temporal a la interfaz o generar el fragmento HTML exacto para actualizar su archivo <code class="bg-black/30 px-2 py-0.5 rounded text-gob-doradoLight font-mono">index.html</code>.
+                    </p>
+                </div>
+                <button onclick="openModal()" class="relative z-10 shrink-0 inline-flex items-center gap-2 bg-gob-dorado hover:bg-gob-doradoLight text-slate-900 font-bold text-xs px-5 py-3 rounded-xl shadow-md transition transform hover:scale-105">
+                    <i class="fa-solid fa-code"></i> Abrir Generador de Módulos
+                </button>
+            </div>
+        </section>
+
+
+    </main>
+
+
+    <!-- Modal: Añadir Nuevo Módulo -->
+    <div id="add-module-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full border border-slate-200 overflow-hidden my-8 animate-in fade-in zoom-in duration-200">
+           
+            <!-- Modal Header -->
+            <div class="bg-gob-guinda text-white px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-gob-dorado/20 text-gob-dorado flex items-center justify-center text-sm">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-heading font-bold text-base text-white">Añadir Nuevo Módulo Institucional</h3>
+                        <p class="text-[11px] text-slate-200">Agregue un nuevo acceso a la pantalla principal o genere código HTML para GitHub Pages</p>
+                    </div>
+                </div>
+                <button onclick="closeModal()" class="text-slate-300 hover:text-white text-lg w-8 h-8 rounded-full flex items-center justify-center hover:bg-white/10 transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+
+            <!-- Modal Form Body -->
+            <form id="add-module-form" onsubmit="handleFormSubmit(event)" class="p-6 space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                   
+                    <!-- Module Title -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Título del Módulo *</label>
+                        <input type="text" id="mod-title" required placeholder="Ej: 7. Vigilancia Vacunas" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-gob-guinda focus:outline-none">
+                    </div>
+
+
+                    <!-- Module Link HTML -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Archivo / Enlace HTML *</label>
+                        <input type="text" id="mod-link" required placeholder="Ej: vacunas.html" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-gob-guinda focus:outline-none">
+                    </div>
+
+
+                    <!-- FontAwesome Icon Code -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Icono FontAwesome *</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="mod-icon" required placeholder="Ej: fa-syringe" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-gob-guinda focus:outline-none">
+                            <div id="icon-preview" class="w-10 h-10 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 text-sm shrink-0">
+                                <i class="fa-solid fa-question"></i>
+                            </div>
+                        </div>
+                        <span class="text-[10px] text-slate-400">Ejemplos: fa-stethoscope, fa-pills, fa-heart-pulse, fa-vial</span>
+                    </div>
+
+
+                    <!-- Category -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Categoría de Filtro *</label>
+                        <select id="mod-category" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-gob-guinda focus:outline-none">
+                            <option value="monitoreo">Vigilancia y Agua</option>
+                            <option value="operativo" selected>Operativo y Servicios</option>
+                            <option value="documentacion">Normatividad</option>
+                        </select>
+                    </div>
+
+
+                    <!-- Status Label -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Etiqueta de Estado *</label>
+                        <input type="text" id="mod-status" required placeholder="Ej: Activo, En línea, Actualizado" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-gob-guinda focus:outline-none">
+                    </div>
+
+
+                    <!-- Tag / Category label string -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Etiqueta Inferior</label>
+                        <input type="text" id="mod-tag" placeholder="Ej: Control Inmunización" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-gob-guinda focus:outline-none">
+                    </div>
+
+
+                </div>
+
+
+                <!-- Description -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Descripción Breve *</label>
+                    <textarea id="mod-desc" rows="2" required placeholder="Descripción concisa de las funciones del módulo..." class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-gob-guinda focus:outline-none"></textarea>
+                </div>
+
+
+                <!-- Generated HTML Snippet Output Box -->
+                <div id="html-output-container" class="hidden mt-4 pt-4 border-t border-slate-200">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label class="text-xs font-bold text-gob-guinda flex items-center gap-1.5">
+                            <i class="fa-solid fa-code"></i> Fragmento HTML listo para index.html:
+                        </label>
+                        <button type="button" onclick="copyHTMLSnippet()" class="text-[11px] bg-slate-800 text-white hover:bg-black font-semibold px-2.5 py-1 rounded transition flex items-center gap-1">
+                            <i class="fa-solid fa-copy"></i> Copiar Código
+                        </button>
+                    </div>
+                    <pre id="html-snippet-code" class="bg-slate-900 text-emerald-400 font-mono text-[11px] p-3 rounded-lg overflow-x-auto max-h-40 border border-slate-800 select-all"></pre>
+                </div>
+
+
+                <!-- Form Actions -->
+                <div class="flex items-center justify-end gap-2 pt-4 border-t border-slate-100">
+                    <button type="button" onclick="closeModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg transition">
+                        Cancelar
+                    </button>
+                    <button type="button" onclick="generateHTMLSnippetOnly()" class="px-4 py-2 text-xs font-semibold bg-slate-100 text-slate-800 hover:bg-slate-200 rounded-lg transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-code text-gob-guinda"></i> Solo Generar Código HTML
+                    </button>
+                    <button type="submit" class="px-4 py-2 text-xs font-semibold bg-gob-guinda hover:bg-gob-guindaLight text-white rounded-lg shadow transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-plus"></i> Añadir a la Pantalla
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Institutional Footer -->
+    <footer class="bg-gob-guindaDark text-white border-t-4 border-gob-dorado">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 pb-8 border-b border-white/10">
+               
+                <!-- Col 1: Government Header -->
+                <div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-gob-dorado/20 text-gob-dorado flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-landmark"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-heading font-bold text-sm text-white">Servicio Nacional de Salud Pública</h4>
+                            <p class="text-xs text-gob-dorado">Estado de Hidalgo</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Coordinación Estatal de Vigilancia Epidemiológica, Salud Poblacional y Monitoreo Institucional.
+                    </p>
+                </div>
+
+
+                <!-- Col 2: Direct Contact / Support -->
+                <div>
+                    <h5 class="font-heading font-semibold text-xs text-gob-doradoLight uppercase tracking-wider mb-3">Información Institucional</h5>
+                    <ul class="text-xs text-slate-300 space-y-2">
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-gob-dorado"></i> Pachuca de Soto, Estado de Hidalgo
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-globe text-gob-dorado"></i> Portal Optimizado para GitHub Pages
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-clock text-gob-dorado"></i> Operación 24 hrs / 365 días
+                        </li>
+                    </ul>
+                </div>
+
+
+                <!-- Col 3: Mandatory Attribution Notice -->
+                <div>
+                    <h5 class="font-heading font-semibold text-xs text-gob-doradoLight uppercase tracking-wider mb-3">Créditos de Desarrollo</h5>
+                    <div class="bg-white/5 border border-white/10 rounded-xl p-3.5">
+                        <p class="text-xs text-slate-300 flex items-center gap-2 font-medium">
+                            <i class="fa-solid fa-user-shield text-gob-dorado"></i>
+                            <span>Realizado por: <strong class="text-white">Monitoreo y Alertamiento. Ronald Ramírez</strong></span>
+                        </p>
+                        <span class="inline-block mt-2 text-[10px] text-slate-400">
+                            Coordinación Estatal de Monitoreo & Alertamiento Epidemiológico
+                        </span>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <!-- Mandatory Footer Bar -->
+            <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+                <p>© 2026 Servicio Nacional de Salud Pública - Estado de Hidalgo. Todos los derechos reservados.</p>
+                <div class="bg-black/30 text-slate-300 px-3 py-1.5 rounded-lg border border-white/5 font-mono text-[11px] font-semibold text-center">
+                    Realizado por: Monitoreo y Alertamiento. Ronald Ramírez
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Toast Notification for Clipboard / Actions -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 border border-slate-700">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <span id="toast-message" class="text-xs font-semibold">Notificación</span>
+    </div>
+
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Set live formatted date
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const today = new Date().toLocaleDateString('es-MX', dateOptions);
+            document.getElementById('current-date').textContent = today.charAt(0).toUpperCase() + today.slice(1);
+
+
+            // Icon preview listener for modal form
+            const iconInput = document.getElementById('mod-icon');
+            if (iconInput) {
+                iconInput.addEventListener('input', (e) => {
+                    const iconVal = e.target.value.trim();
+                    const preview = document.getElementById('icon-preview');
+                    if (iconVal) {
+                        preview.innerHTML = `<i class="fa-solid ${iconVal}"></i>`;
+                    } else {
+                        preview.innerHTML = `<i class="fa-solid fa-question"></i>`;
+                    }
+                });
+            }
+        });
+
+
+        // Live Search Filter Function
+        function filterModules() {
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
+            const clearBtn = document.getElementById('clear-search');
+            const cards = document.querySelectorAll('.module-card');
+            let visibleCount = 0;
+
+
+            if (query.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+
+
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title') || '';
+                const desc = card.getAttribute('data-desc') || '';
+                const contentText = card.innerText.toLowerCase();
+
+
+                if (title.includes(query) || desc.includes(query) || contentText.includes(query)) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+
+            // Update visible badge & empty state
+            const badge = document.getElementById('module-count-badge');
+            const emptyState = document.getElementById('empty-state');
+           
+            badge.textContent = `${visibleCount} de ${cards.length} Módulos`;
+
+
+            if (visibleCount === 0) {
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+            }
+        }
+
+
+        // Clear Search Box
+        function clearSearch() {
+            const input = document.getElementById('search-input');
+            input.value = '';
+            filterModules();
+        }
+
+
+        // Filter Category Tabs
+        function filterCategory(cat) {
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-gob-guinda', 'text-white', 'active');
+                btn.classList.add('bg-slate-100', 'text-slate-700');
+            });
+
+
+            // Set clicked button active
+            event.currentTarget.classList.remove('bg-slate-100', 'text-slate-700');
+            event.currentTarget.classList.add('bg-gob-guinda', 'text-white', 'active');
+
+
+            const cards = document.querySelectorAll('.module-card');
+            let visibleCount = 0;
+
+
+            cards.forEach(card => {
+                const cardCat = card.getAttribute('data-category');
+                if (cat === 'todos' || cardCat === cat) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+
+            document.getElementById('module-count-badge').textContent = `${visibleCount} de ${cards.length} Módulos`;
+            document.getElementById('empty-state').classList.add('hidden');
+        }
+
+
+        // Modal Handlers
+        function openModal() {
+            document.getElementById('add-module-modal').classList.remove('hidden');
+        }
+
+
+        function closeModal() {
+            document.getElementById('add-module-modal').classList.add('hidden');
+            document.getElementById('html-output-container').classList.add('hidden');
+        }
+
+
+        // Keyboard Escape key closes modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+
+        // Generate clean HTML snippet string for GitHub Pages
+        function buildCardHTML(data) {
+            return `<!-- Card: ${data.title} -->
+<div class="module-card bg-white rounded-2xl border border-slate-200/80 shadow-sm card-hover flex flex-col overflow-hidden" data-category="${data.category}" data-title="${data.title.toLowerCase()}" data-desc="${data.desc.toLowerCase()}">
+    <div class="p-6 flex-grow">
+        <div class="flex items-start justify-between gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 text-gob-guinda flex items-center justify-center text-xl shadow-xs">
+                <i class="fa-solid ${data.icon}"></i>
+            </div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${data.status}
+            </span>
+        </div>
+        <h4 class="font-heading font-bold text-lg text-slate-900 mb-2">
+            ${data.title}
+        </h4>
+        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+            ${data.desc}
+        </p>
+    </div>
+    <div class="px-6 py-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between">
+        <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">${data.tag || 'Módulo Oficial'}</span>
+        <a href="${data.link}" target="_blank" class="inline-flex items-center gap-2 bg-gob-guinda hover:bg-gob-guindaLight text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow-sm transition">
+            Acceder a la página <i class="fa-solid fa-arrow-right text-[10px]"></i>
+        </a>
+    </div>
+</div>`;
+        }
+
+
+        // Form Submit: Add Card dynamically to grid
+        function handleFormSubmit(e) {
+            e.preventDefault();
+           
+            const formData = {
+                title: document.getElementById('mod-title').value.trim(),
+                link: document.getElementById('mod-link').value.trim(),
+                icon: document.getElementById('mod-icon').value.trim(),
+                category: document.getElementById('mod-category').value,
+                status: document.getElementById('mod-status').value.trim(),
+                tag: document.getElementById('mod-tag').value.trim() || 'Servicio SNSP',
+                desc: document.getElementById('mod-desc').value.trim()
+            };
+
+
+            const cardMarkup = buildCardHTML(formData);
+           
+            // Append to Grid
+            const grid = document.getElementById('modules-grid');
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = cardMarkup;
+            const newCard = tempDiv.firstElementChild;
+            grid.appendChild(newCard);
+
+
+            // Update counter stat
+            const allCards = document.querySelectorAll('.module-card');
+            document.getElementById('stat-total-modules').textContent = allCards.length;
+            document.getElementById('module-count-badge').textContent = `${allCards.length} de ${allCards.length} Módulos`;
+
+
+            showToast("Módulo añadido exitosamente a la interfaz", "fa-circle-check");
+            closeModal();
+            document.getElementById('add-module-form').reset();
+        }
+
+
+        // Just generate code snippet inside modal
+        function generateHTMLSnippetOnly() {
+            const formData = {
+                title: document.getElementById('mod-title').value.trim() || 'Nuevo Módulo',
+                link: document.getElementById('mod-link').value.trim() || 'nuevo.html',
+                icon: document.getElementById('mod-icon').value.trim() || 'fa-cubes',
+                category: document.getElementById('mod-category').value,
+                status: document.getElementById('mod-status').value.trim() || 'Activo',
+                tag: document.getElementById('mod-tag').value.trim() || 'Módulo Institucional',
+                desc: document.getElementById('mod-desc').value.trim() || 'Descripción del módulo.'
+            };
+
+
+            const markup = buildCardHTML(formData);
+            const outputContainer = document.getElementById('html-output-container');
+            const codeBox = document.getElementById('html-snippet-code');
+           
+            codeBox.textContent = markup;
+            outputContainer.classList.remove('hidden');
+            showToast("Código HTML generado", "fa-code");
+        }
+
+
+        // Copy HTML snippet to clipboard
+        function copyHTMLSnippet() {
+            const textToCopy = document.getElementById('html-snippet-code').textContent;
+           
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showToast("Código copiado al portapapeles", "fa-clipboard-check");
+                }).catch(() => {
+                    fallbackCopyText(textToCopy);
+                });
+            } else {
+                fallbackCopyText(textToCopy);
+            }
+        }
+
+
+        function fallbackCopyText(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed"; // avoid scrolling
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast("Código copiado al portapapeles", "fa-clipboard-check");
+            } catch (err) {
+                showToast("No se pudo copiar automáticamente", "fa-triangle-exclamation");
+            }
+            document.body.removeChild(textArea);
+        }
+
+
+        // Show toast notification
+        function showToast(message, iconClass = "fa-circle-check") {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-message');
+            const iconEl = document.getElementById('toast-icon');
+
+
+            msgEl.textContent = message;
+            iconEl.className = `fa-solid ${iconClass} text-emerald-400 text-base`;
+
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
